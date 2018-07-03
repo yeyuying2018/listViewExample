@@ -24,13 +24,14 @@ export default class App extends Component {
             onPress={()=>{
               navigation.navigate('ListViewTest');
             }}
-            />
+          />
           <Button
               title={"FetchTest"}
               onPress={()=>{
               navigation.navigate('FetchTest');
             }}
-              />
+          />
+
       </View>
     );
   }

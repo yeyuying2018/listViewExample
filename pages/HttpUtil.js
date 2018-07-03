@@ -12,14 +12,16 @@ import {
     View,
     Button,
     Image,
-   // ListView,
-   /// TouchableOpacity,
+    // ListView,
+    /// TouchableOpacity,
     //RefreshControl
     } from 'react-native';
 //import Toast, {DURATION} from 'react-native-easy-toast'
-import HttpUtil from '../HttpUtil';
 
-export default class FetchTest extends Component {
+export default class HttpUtil extends Component {
+    static get(url){
+        return new Promise()
+    }
     constructor(props){
         super(props);
         this.state = {
@@ -28,60 +30,39 @@ export default class FetchTest extends Component {
         }
     }
     load(url){
-        HttpUtil.get(url)
-        .then(result=>{
-            this.setState({
-                result: JSON.stringify(result)
-            })
-        })
-        .catch((error) => {
+        fetch(url)
+            .then((response) => response.json())
+            .then((result) =>{
                 this.setState({
-                    result: JSON.stringify(error)
+                    result: JSON.stringify(result)
                 })
-         })
-        //fetch(url)
-        //.then((response) => response.json())
-        //.then((result) =>{
-        //    this.setState({
-        //        result: JSON.stringify(result)
-        //    })
-        //})
-        //.catch((error) => {
-        //    this.setState({
-        //        result: JSON.stringify(error)
-        //    })
-        //});
-    }
-    submit(url, data){
-        //fetch(url,{
-        //    method: 'POST',
-        //    headers: {
-        //        Accept: 'application/json',
-        //        'Content-Type': 'application/json',
-        //    },
-        //    body: JSON.stringify(data)
-        //})
-        //.then((response) => response.json())
-        //.then((result) =>{
-        //    this.setState({
-        //        result: JSON.stringify(result)
-        //    })
-        //})
-        //.catch((error) => {
-        //    this.setState({
-        //        result: JSON.stringify(error)
-        //    })
-        //});
-        HttpUtil.post(url,data).then(result=>{
-            this.setState({
-                result: JSON.stringify(result)
             })
-        })
             .catch((error) => {
                 this.setState({
                     result: JSON.stringify(error)
                 })
+            });
+    }
+    submit(url, data){
+        fetch(url,{
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+            .then((response) => response.json())
+            .then((result) =>{
+                this.setState({
+                    result: JSON.stringify(result)
+                })
             })
+            .catch((error) => {
+                this.setState({
+                    result: JSON.stringify(error)
+                })
+            });
     }
     render() {
         return (
